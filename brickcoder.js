@@ -12,14 +12,21 @@
         // Code that gets executed when the block is run
     };
 
+    ext.call_http = function(location, callback) {
+        $.ajax({
+              url: 'http://localhost:9555/test'
+        });
+    };
+
     // Block and block menu descriptions
     var descriptor = {
         blocks: [
             // Block type, block name, function name
             [' ', 'my first block', 'my_first_block'],
+            [' ', 'call http', 'call_http'],
         ]
     };
 
     // Register the extension
-    ScratchExtensions.register('My first extension', descriptor, ext);
+    ScratchExtensions.register('Brickcoder', descriptor, ext);
 })({});
