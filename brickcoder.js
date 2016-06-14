@@ -1,4 +1,6 @@
 (function(ext) {
+    var host = 'http://localhost:9555';
+
     // Cleanup function when the extension is unloaded
     ext._shutdown = function() {};
 
@@ -8,19 +10,16 @@
         return {status: 2, msg: 'Ready'};
     };
 
-    ext.my_first_block = function() {
-        // Code that gets executed when the block is run
-    };
 
     ext.call_http = function(location, callback) {
         $.ajax({
-              url: 'http://localhost:9555/test'
+              url: host + '/test'
         });
     };
 
-    ext.sendRawCommand = function(location, callback) {
+    ext.sendRawCommand = function(rawIrCommand) {
         $.ajax({
-              url: 'http://localhost:9555/test'
+              url: host + '/sendRaw/'+rawIrCommand
         });
     };
 
@@ -28,7 +27,6 @@
     var descriptor = {
         blocks: [
             // Block type, block name, function name
-            [' ', 'my first block', 'my_first_block'],
             [' ', 'call http', 'call_http'],
             [' ', 'turn all off', 'call_http'],
             [' ', 'turn %m.device on', 'call_http', 'CH1 RED'],
