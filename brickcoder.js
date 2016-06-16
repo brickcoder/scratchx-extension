@@ -24,14 +24,14 @@
     };
 
     // Detect language
-    var contentLang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
-    contentLang = contentLang.substr(0, 2);
+    var contentLanguage = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+    contentLanguage = contentLanguage.substr(0, 2);
 
     var language = 'en';
     var supportedLanguages = ['en', 'de'];
-    var isContentLanguageSupported = (supportedLanguages.indexOf(contentLang) > -1);
+    var isContentLanguageSupported = (supportedLanguages.indexOf(contentLanguage) > -1);
     if (isContentLanguageSupported) {
-        language = contentLang;
+        language = contentLanguage;
     }
 
     var blocks = {
@@ -46,12 +46,12 @@
       ],
       de: [
           [' ', 'call http', 'call_http'],
-          [' ', 'turn all off', 'call_http'],
-          [' ', 'turn %m.device on', 'call_http', '1 ROT'],
-          [' ', 'turn %m.device off', 'call_http', '1 ROT'],
-          [' ', 'set direction of %m.device to %m.direction', 'call_http', '1 ROT','forwärts'],
-          [' ', 'set power of %m.device to %m.power', 'call_http', '1 ROT','7'],
-          [' ', 'send raw command %n', 'sendRawCommand', 407],
+          [' ', 'Schalte alle aus', 'call_http'],
+          [' ', 'Schalte %m.device ein', 'call_http', '1 ROT'],
+          [' ', 'Schalte %m.device aus', 'call_http', '1 ROT'],
+          [' ', 'Setze Richtung von %m.device auf %m.direction', 'call_http', '1 ROT','forwärts'],
+          [' ', 'Setze Leistung von %m.device auf %m.power', 'call_http', '1 ROT','7'],
+          [' ', 'Sende Kommando %n', 'sendRawCommand', 407],
       ]
     };
 
