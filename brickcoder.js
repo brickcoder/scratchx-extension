@@ -23,25 +23,56 @@
         });
     };
 
-    // Block and block menu descriptions
-    var descriptor = {
-        blocks: [
-            // Block type, block name, function name
-            [' ', 'call http', 'call_http'],
-            [' ', 'turn all off', 'call_http'],
-            [' ', 'turn %m.device on', 'call_http', 'CH1 RED'],
-            [' ', 'turn %m.device off', 'call_http', 'CH1 RED'],
-            [' ', 'set direction of %m.device to %m.direction', 'call_http', 'CH1 RED','forward'],
-            [' ', 'set power of %m.device to %m.power', 'call_http', 'CH1 RED','7'],
-            [' ', 'send raw command %n', 'sendRawCommand', 407],
-        ],
-        menus: {
-            device: ['CH1 RED', 'CH1 BLUE', 'CH2 RED', 'CH2 BLUE', 'CH3 RED', 'CH3 BLUE', 'CH4 RED', 'CH4 BLUE'],
-            power: ['0', '1', '2', '3', '4', '5', '6', '7'],
-            direction: ['forward', 'backward'],
-        }
+    // Detect language
+    var contentLang = navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage);
+    contentLang = contentLang.substr(0, 2);
+
+    var language = 'en';
+    var supportedLanguages = ['en', 'de'];
+    var isContentLanguageSupported = (supportedLanguages.indexOf(contentLang) > -1);
+    if (isContentLanguageSupported) {
+        language = contentLang;
+    }
+
+    var blocks = {
+      en: [
+          [' ', 'call http', 'call_http'],
+          [' ', 'turn all off', 'call_http'],
+          [' ', 'turn %m.device on', 'call_http', '1 RED'],
+          [' ', 'turn %m.device off', 'call_http', '1 RED'],
+          [' ', 'set direction of %m.device to %m.direction', 'call_http', '1 RED','forward'],
+          [' ', 'set power of %m.device to %m.power', 'call_http', '1 RED','7'],
+          [' ', 'send raw command %n', 'sendRawCommand', 407],
+      ],
+      de: [
+          [' ', 'call http', 'call_http'],
+          [' ', 'turn all off', 'call_http'],
+          [' ', 'turn %m.device on', 'call_http', '1 ROT'],
+          [' ', 'turn %m.device off', 'call_http', '1 ROT'],
+          [' ', 'set direction of %m.device to %m.direction', 'call_http', '1 ROT','forwärts'],
+          [' ', 'set power of %m.device to %m.power', 'call_http', '1 ROT','7'],
+          [' ', 'send raw command %n', 'sendRawCommand', 407],
+      ]
     };
 
-    // Register the extension
+    var menus = {
+      en: {
+          device: ['1 RED', '1 BLUE', '2 RED', '2 BLUE', '3 RED', '3 BLUE', '4 RED', '4 BLUE'],
+          power: ['0', '1', '2', '3', '4', '5', '6', '7'],
+          direction: ['forward', 'backward'],
+      },
+      de: {
+          device: ['1 ROT', '1 BLAU', '2 ROT', '2 BLAU', '3 ROT', '3 BLAU', '4 ROT', '4 BLAU'],
+          power: ['0', '1', '2', '3', '4', '5', '6', '7'],
+          direction: ['forwärts', 'rückwärts'],
+      }
+    };
+
+    var descriptor = {
+        blocks: blocks[language],
+        menus: menus[language],
+        url: 'http://brickcoder.github.io/scratchx-extension'
+    };
+
     ScratchExtensions.register('Brickcoder', descriptor, ext);
 })({});
